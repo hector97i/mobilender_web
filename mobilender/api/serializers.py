@@ -23,9 +23,10 @@ class ArticleQuantitySerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
+    client = ClientSerializer()
     class Meta:
         model = Order
-        exclude = ['articles']
+        fields = '__all__'
 
     # def create(self, validated_data):
 

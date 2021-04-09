@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-edct09pd_yhzyhe7fxoa+=3dq-da8ah2)t6*h(ad-lb4d8g^r5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -73,6 +73,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mobilender.wsgi.application'
+CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
 
 # Database

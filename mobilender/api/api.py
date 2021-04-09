@@ -1,5 +1,6 @@
 from .models import *
 from rest_framework import viewsets, permissions, status
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from .serializers import *
 
@@ -28,7 +29,7 @@ class SupplierViewSet(viewsets.ModelViewSet):
     serializer_class = SupplierSerializer
 
 
-class OrderViewSet(viewsets.ModelViewSet):
+class GetOrderViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Order.objects.all()
     permission_classes = [
         permissions.AllowAny
@@ -36,6 +37,11 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     serializer_class = OrderSerializer
 
+    def retrieve(self, request, pk=None):
+        queryset = Order.objects.all()
+        order = get_object_or_404(queryset, pk=pk)
+        serializer = OrderSerializer(queryset, many = True)
+        return Response(serializer.data)
 
 class ArticleQuantityViewSet(viewsets.ModelViewSet):
     model = ArticleQuantity
