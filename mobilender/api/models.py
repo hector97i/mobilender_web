@@ -44,6 +44,7 @@ class Order(models.Model):
 class ArticleQuantity(models.Model):
     article = models.ForeignKey(Article, on_delete=models.DO_NOTHING)
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
+    supplier = models.ForeignKey(Supplier, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField()
 
     def __str__(self):

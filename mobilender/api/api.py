@@ -2,6 +2,7 @@ from .models import *
 from rest_framework import viewsets, permissions, status
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .serializers import *
 
 class ClientViewSet(viewsets.ModelViewSet):
@@ -43,6 +44,7 @@ class GetOrderViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = OrderSerializer(queryset, many = True)
         return Response(serializer.data)
 
+
 class ArticleQuantityViewSet(viewsets.ModelViewSet):
     model = ArticleQuantity
     permission_classes = [
@@ -57,3 +59,9 @@ class ArticleQuantityViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+@api_view(('GET',))
+def retrieve_order_articles(request, id):
+    articles = ArticleQuantity.objects.filter(order = id)
+    serializer = ArticleQuantitySerializer(articles, many = True)
+    return Response(serializer.data)

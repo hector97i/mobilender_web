@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getOrders } from '../helpers/getOrders'
 
-export const useFetchOrders = () => {
+export const useGetOrders = () => {
 
     const [state, setState] = useState({
         data: [],
@@ -24,4 +24,4 @@ export const useFetchOrders = () => {
     return state;
 }
 
-export default useFetchOrders;
+export default useGetOrders;

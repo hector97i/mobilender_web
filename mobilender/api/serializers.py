@@ -6,17 +6,23 @@ class ClientSerializer(serializers.ModelSerializer):
         model = Client
         fields = '__all__'
 
-class ArticleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Article
-        fields = '__all__'
 
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = '__all__'
 
+class ArticleSerializer(serializers.ModelSerializer):
+
+    suppliers = SupplierSerializer(many=True)
+
+    class Meta:
+        model = Article
+        fields = '__all__'
 class ArticleQuantitySerializer(serializers.ModelSerializer):
+
+    article = ArticleSerializer()
+    supplier = SupplierSerializer()
     class Meta:
         model = ArticleQuantity
         fields = '__all__'
@@ -26,7 +32,7 @@ class OrderSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
     class Meta:
         model = Order
-        fields = '__all__'
+        exclude = ['articles', ]
 
     # def create(self, validated_data):
 

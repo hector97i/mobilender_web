@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Orders from './Orders';
+import OrdersCollapsible from './OrdersCollapsible';
+import OrderForm from './OrderForm';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,12 +28,13 @@ export default function Dashboard() {
             <Grid container spacing={3}>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
-                        <Orders />
+                        {/* <Orders /> */}
+                        <OrdersCollapsible />
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
-                        
+                        <OrderForm></OrderForm>
                     </Paper>
                 </Grid>
             </Grid>
