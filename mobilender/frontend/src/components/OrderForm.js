@@ -22,34 +22,52 @@ export default function OrderForm() {
 
     const classes = useStyles();
 
+    const [id, setId] = useState(null);
     const [client, setClient] = useState(null);
+    const [servedAt, setServedAt] = useState(new Date(2021, 1, 1, 0, 0, 0, 0))
+    const [center, setCenter] = useState(null);
+    const [served, setServed] = useState(false);
+    const [urgency, setUrgency] = useState(false);
+    const [toCenter, setToCenter] = useState(false);
+
     const handleClientChange = (event) => {
         setClient(event.target.value);
     };
 
-    const [center, setCenter] = useState(null);
     const handleCenterChange = (event) => {
+
         setCenter(event.target.value);
+        switch (event.target.value) {
+            case 0:
+                setToCenter(true);
+                break;
+
+            default:
+                setToCenter(false);
+                break;
+        }
+        console.log(center);
+        console.log(toCenter);
     };
 
-    const [id, setId] = useState(null);
     const handleIDChange = (event) => {
         setId(event.target.value);
     };
 
-    const [servedAt, setServedAt] = useState(new Date(2021, 1, 1, 0, 0, 0, 0))
     const handleDateServedChange = (event) => {
         setServedAt(event.target.value);
     };
 
-    const [served, setServed] = useState(false);
     const handleServedChange = (event) => {
         setServed(event.target.checked);
     };
 
-    const [urgency, setUrgency] = useState(false);
     const handleUrgencyChange = (event) => {
         setUrgency(event.target.checked);
+    };
+
+    const handleToCenterChange = (event) => {
+        setToCenter(event.target.checked);
     };
 
     return (
@@ -95,8 +113,8 @@ export default function OrderForm() {
                             labelWidth={100}
                         >
                             <MenuItem value={1}>Matriz</MenuItem>
-                            <MenuItem value={20}>Sucursal</MenuItem>
-                            <MenuItem value={30}>Socio</MenuItem>
+                            <MenuItem value={2}>Sucursal</MenuItem>
+                            <MenuItem value={3}>Socio</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -131,7 +149,6 @@ export default function OrderForm() {
                             id="datetime-local"
                             label="Surtido:"
                             type="datetime-local"
-                            defaultValue="2017-05-24T10:30"
                             className={classes.textField}
                             InputLabelProps={{
                                 shrink: true,
