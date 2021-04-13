@@ -15,10 +15,11 @@ cd src/frontend && npm i
 ```
 3. Hacer build de la version mas reciente del frontend en react.
 ```bash
-cd src/frontend && npm run build
+npm run build
 ```
 4. Migrar la base de datos al esquema acutal.
 ```bash
+cd ..
 python manage.py migrate
 ```
 4. Ejecutar el sevido de Django.
