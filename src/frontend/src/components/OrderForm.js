@@ -1,6 +1,7 @@
 import { Typography, TextField, Select, MenuItem, Checkbox, FormControlLabel, InputLabel, FormControl, Grid, Paper } from '@material-ui/core';
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import useGetClients from '../hooks/useGetClients';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -22,23 +23,33 @@ export default function OrderForm() {
 
     const classes = useStyles();
 
+    const {data: clients, loading} = useGetClients();
+
     const [id, setId] = useState(null);
-    const [client, setClient] = useState(null);
+    const [client, setClient] = useState();
     const [servedAt, setServedAt] = useState(new Date(2021, 1, 1, 0, 0, 0, 0))
-    const [center, setCenter] = useState(null);
+    const [center, setCenter] = useState();
     const [served, setServed] = useState(false);
     const [urgency, setUrgency] = useState(false);
     const [toCenter, setToCenter] = useState(false);
 
     const handleClientChange = (event) => {
         setClient(event.target.value);
+        console.log(client);
     };
 
     const handleCenterChange = (event) => {
 
         setCenter(event.target.value);
-        if (event.target.value === 1) setToCenter(true);
-        else setToCenter(true)
+        switch (event.target.value) {
+            case 1:
+                setToCenter(true);
+                break;
+
+            default:
+                setToCenter(false);
+                break;
+        }
         console.log(center);
         console.log(toCenter);
     };
@@ -90,9 +101,11 @@ export default function OrderForm() {
                             value={client}
                             onChange={handleClientChange}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            { 
+                                clients.map((client) => (
+                                    <MenuItem key={client.id} value={client.id}>{client.name}</MenuItem>
+                                ))
+                            }
                         </Select>
                     </FormControl>
 
@@ -105,9 +118,9 @@ export default function OrderForm() {
                             onChange={handleCenterChange}
                             labelWidth={100}
                         >
-                            <MenuItem value={1}>Matriz</MenuItem>
-                            <MenuItem value={2}>Sucursal</MenuItem>
-                            <MenuItem value={3}>Socio</MenuItem>
+                            <MenuItem key={1} value={1}>Matriz</MenuItem>
+                            <MenuItem key={2} value={2}>Sucursal</MenuItem>
+                            <MenuItem key={3} value={3}>Socio</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
