@@ -37,15 +37,8 @@ export default function OrderForm() {
     const handleCenterChange = (event) => {
 
         setCenter(event.target.value);
-        switch (event.target.value) {
-            case 0:
-                setToCenter(true);
-                break;
-
-            default:
-                setToCenter(false);
-                break;
-        }
+        if (event.target.value === 1) setToCenter(true);
+        else setToCenter(true)
         console.log(center);
         console.log(toCenter);
     };
